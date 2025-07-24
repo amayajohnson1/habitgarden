@@ -5,16 +5,17 @@ import { getFirestore, collection, doc, addDoc, deleteDoc, onSnapshot, updateDoc
 import { CheckCircle, Circle, Plus, Trash2, Sprout, X, Target, Flame, Edit, MessageSquare, Save, Sparkles, LoaderCircle } from 'lucide-react';
 
 // --- Firebase Configuration ---
-const firebaseConfig = (typeof process !== 'undefined' && process.env && process.env.REACT_APP_FIREBASE_CONFIG)
+// This setup handles both Vercel (process.env) and the immersive environment (window variables)
+const firebaseConfig = (typeof process !== 'undefined' && process.env.REACT_APP_FIREBASE_CONFIG)
   ? JSON.parse(process.env.REACT_APP_FIREBASE_CONFIG)
-  : (typeof __firebase_config !== 'undefined' ? JSON.parse(__firebase_config) : {});
+  : (typeof window !== 'undefined' && window.__firebase_config ? JSON.parse(window.__firebase_config) : {});
 
-const appId = (typeof process !== 'undefined' && process.env && process.env.REACT_APP_APP_ID)
+const appId = (typeof process !== 'undefined' && process.env.REACT_APP_APP_ID)
   ? process.env.REACT_APP_APP_ID
-  : (typeof __app_id !== 'undefined' ? __app_id : 'default-habit-garden');
+  : (typeof window !== 'undefined' && window.__app_id ? window.__app_id : 'default-habit-garden');
 
 // --- Gemini API Key ---
-const GEMINI_API_KEY = (typeof process !== 'undefined' && process.env && process.env.REACT_APP_GEMINI_API_KEY)
+const GEMINI_API_KEY = (typeof process !== 'undefined' && process.env.REACT_APP_GEMINI_API_KEY)
   ? process.env.REACT_APP_GEMINI_API_KEY
   : "";
 
